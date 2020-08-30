@@ -34,17 +34,17 @@ if !exists('g:gh_open_command')
     endif
 endif
 
-if !exists('g:gh_repo_map')
-    let g:gh_repo_map = '<leader>go'
-endif
-
-if !exists('g:gh_line_map') && g:gh_line_map_default == 1
-    let g:gh_line_map = '<leader>gh'
-endif
-
-if !exists('g:gh_line_blame_map') && g:gh_line_blame_map_default == 1
-    let g:gh_line_blame_map = '<leader>gb'
-endif
+"if !exists('g:gh_repo_map')
+"    let g:gh_repo_map = '<leader>go'
+"endif
+"
+"if !exists('g:gh_line_map') && g:gh_line_map_default == 1
+"    let g:gh_line_map = '<leader>gh'
+"endif
+"
+"if !exists('g:gh_line_blame_map') && g:gh_line_blame_map_default == 1
+"    let g:gh_line_blame_map = '<leader>gb'
+"endif
 
 if !exists('g:gh_use_canonical')
     let g:gh_use_canonical = 1
@@ -413,25 +413,31 @@ func! s:CgitUrl(remote_url)
                 \ 'g:gh_cgit_url_pattern_sub:' . string(g:gh_cgit_url_pattern_sub)
 endfunc
 
+function! s:CdHereThenOpenRepo() abort
+  call shell#CdHere()
+  call <SID>gh_repo()
+endfunction
+
+command! GO :call <SID>CdHereThenOpenRepo()
 noremap <silent> <Plug>(gh-repo) :call <SID>gh_repo()<CR>
 
 command! -range GH <line1>,<line2>call <SID>gh_line('blob', g:gh_always_interactive)
 noremap <silent> <Plug>(gh-line) :call <SID>gh_line('blob', g:gh_always_interactive)<CR>
 
-command! -range GB <line1>,<line2>call <SID>gh_line('blame', g:gh_always_interactive)
-noremap <silent> <Plug>(gh-line-blame) :call <SID>gh_line('blame', g:gh_always_interactive)<CR>
-
-command! -range GHInteractive <line1>,<line2>call <SID>gh_line('blob', 1)
-command! -range GBInteractive <line1>,<line2>call <SID>gh_line('blame', 1)
-
-if !hasmapto('<Plug>(gh-repo)') && exists('g:gh_repo_map')
-    exe "map" g:gh_repo_map "<Plug>(gh-repo)"
-end
-
-if !hasmapto('<Plug>(gh-line)') && exists('g:gh_line_map')
-    exe "map" g:gh_line_map "<Plug>(gh-line)"
-end
-
-if !hasmapto('<Plug>(gh-line-blame)') && exists('g:gh_line_blame_map')
-    exe "map" g:gh_line_blame_map "<Plug>(gh-line-blame)"
-end
+"command! -range GB <line1>,<line2>call <SID>gh_line('blame', g:gh_always_interactive)
+"noremap <silent> <Plug>(gh-line-blame) :call <SID>gh_line('blame', g:gh_always_interactive)<CR>
+"
+"command! -range GHInteractive <line1>,<line2>call <SID>gh_line('blob', 1)
+"command! -range GBInteractive <line1>,<line2>call <SID>gh_line('blame', 1)
+"
+"if !hasmapto('<Plug>(gh-repo)') && exists('g:gh_repo_map')
+"    exe "map" g:gh_repo_map "<Plug>(gh-repo)"
+"end
+"
+"if !hasmapto('<Plug>(gh-line)') && exists('g:gh_line_map')
+"    exe "map" g:gh_line_map "<Plug>(gh-line)"
+"end
+"
+"if !hasmapto('<Plug>(gh-line-blame)') && exists('g:gh_line_blame_map')
+"    exe "map" g:gh_line_blame_map "<Plug>(gh-line-blame)"
+"end
