@@ -424,6 +424,9 @@ noremap <silent> <Plug>(gh-repo) :call <SID>gh_repo()<CR>
 command! -range GH <line1>,<line2>call <SID>gh_line('blob', g:gh_always_interactive)
 noremap <silent> <Plug>(gh-line) :call <SID>gh_line('blob', g:gh_always_interactive)<CR>
 
+command! -range GL <line1>,<line2>call <SID>gh_line('blob', g:gh_always_interactive)
+noremap <silent> <Plug>(gh-line) :call <SID>gh_line('blob', g:gh_always_interactive)<CR>
+
 "command! -range GB <line1>,<line2>call <SID>gh_line('blame', g:gh_always_interactive)
 "noremap <silent> <Plug>(gh-line-blame) :call <SID>gh_line('blame', g:gh_always_interactive)<CR>
 "
